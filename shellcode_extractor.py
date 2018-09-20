@@ -22,8 +22,9 @@ def parsing(binary, base, lines):
     try:
         dump = subprocess.Popen([objdump, '-d', binary], stdout=subprocess.PIPE)
         dump = subprocess.check_output([grep, '-A{}'.format(lines), '<{}>:'.format(base)], stdin=dump.stdout, encoding='utf-8')
-    except Exception:
+    except Exception as e:
         print('[-] Parsing failure...')
+        print(e)
         sys.exit(1)
 
     dump = dump.split('\n')
